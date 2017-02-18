@@ -32,7 +32,7 @@ class NewVisitorTest(LiveServerTestCase):
                     raise # coding=utf-8
                 time.sleep(0.5)
 
-    def test_can_start_a_list_and_retrieve_it_later(self):
+    def test_can_start_a_list_for_one_user(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         self.browser.get(self.live_server_url)
@@ -91,13 +91,13 @@ class NewVisitorTest(LiveServerTestCase):
         #Fracis vists the hiome page. There is no sign of Edith's
         # list
         self.browser.get(self.live_server_url)
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertNotIn('make a fly', page_text)
 
         # Fracis starts a new list by entering a new item. He
         # is less interesting tha Edith...
-        inputbox = self.broswer.find_element_by_id('id_new_item')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy milk')
